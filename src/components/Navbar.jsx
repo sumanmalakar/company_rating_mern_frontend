@@ -98,8 +98,8 @@ const Navbar = () => {
           <h2>Company Rating - MERN</h2>
         </Link>
         <div className="right">
-          {!auth.isAuthenticated &&
-            !auth.isAuthenticatedAdmin(
+
+          {!auth.isAuthenticated && !auth.isAuthenticatedAdmin && (
               <Link to={"/login"} className="items">
                 <h3>
                   <BiLogIn />
