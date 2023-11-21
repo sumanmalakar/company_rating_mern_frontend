@@ -14,9 +14,41 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   // || https://company-rating-mern-api.onrender.com/api/admin/logout
-  const logOut = async () => {
+  const logOutUser = async () => {
     const api = await axios.get(
       `https://company-rating-mern-api.onrender.com/api/users/logout 
+
+          `,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
+
+    // console.log(api);
+    toast.success(api.data.message, {
+      position: "top-center",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+
+    auth.setIsAuthenticated(false);
+    auth.setIsAuthenticatedAdmin(false);
+
+    setTimeout(() => {
+      navigate("/");
+    }, 1500);
+  };
+  const logOutAdmin = async () => {
+    const api = await axios.get(
+      `https://company-rating-mern-api.onrender.com/api/admin/logout 
 
           `,
       {
@@ -101,9 +133,20 @@ const Navbar = () => {
               <h3> AllCompanies</h3>
             </Link>
           )}
-          {auth.isAuthenticated && (
+          {auth.isAuthenticated ? (
             <div
-              onClick={logOut}
+              onClick={logOutUser}
+              className="items"
+              style={{ cursor: "pointer" }}
+            >
+              <h3>
+                {" "}
+                <BiLogOut />
+              </h3>
+            </div>
+          ) : (
+            <div
+              onClick={logOutAdmin}
               className="items"
               style={{ cursor: "pointer" }}
             >
