@@ -40,6 +40,7 @@ const Navbar = () => {
     });
 
     auth.setIsAuthenticated(false);
+    auth.setIsAuthenticatedAdmin(false);
 
     setTimeout(() => {
       navigate("/");
